@@ -10,6 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -18,6 +19,16 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .shopping-cart-wrapper {
+            position: relative;
+        }
+        .shopping-cart-wrapper .badge {
+            position: absolute;
+            top: -10px;
+            right: -15px;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -38,6 +49,14 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mr-2">
+                            <a class="nav-link" href="/cart">
+                                <div class="shopping-cart-wrapper">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span class="badge badge-pill badge-danger">0</span>
+                                </div>
+                            </a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
