@@ -20,9 +20,14 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
+        .pagination {
+            justify-content: center;
+        }
+
         .shopping-cart-wrapper {
             position: relative;
         }
+
         .shopping-cart-wrapper .badge {
             position: absolute;
             top: -10px;
@@ -53,7 +58,9 @@
                             <a class="nav-link" href="/cart">
                                 <div class="shopping-cart-wrapper">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span class="badge badge-pill badge-danger">0</span>
+                                    <span class="badge badge-pill badge-danger">
+                                        {{ session()->has('cart') ? count(session()->get('cart')) : 0 }}
+                                    </span>
                                 </div>
                             </a>
                         </li>

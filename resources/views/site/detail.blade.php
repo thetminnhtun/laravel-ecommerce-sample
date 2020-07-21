@@ -5,7 +5,7 @@
     <div class="card">
         <div class="row">
             <div class="col-md-6 border-right p-5 text-center">
-                <img src="https://via.placeholder.com/350x300" class="img-fluid" alt="Product Image">
+            <img src="/{{ $product->image }}" class="img-fluid" alt="Product Image">
             </div>
             <div class="col-md-6 p-5">
                 <h1>Product Name</h1>

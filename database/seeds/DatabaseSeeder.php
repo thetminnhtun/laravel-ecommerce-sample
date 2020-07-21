@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,5 +13,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UserSeeder::class);
+        $images = Storage::files('images/products');
+        foreach ($images as $image) {
+            factory(App\Product::class)->create([
+                'image' => $image
+            ]);
+        }
     }
 }

@@ -18,66 +18,51 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                        $total = 0;
+                        @endphp
+                        @forelse ($cart as $id => $product)
+                        @php
+                        $total += $product['price'] * $product['quantity'];
+                        @endphp
                         <tr>
                             <td width="30%">
                                 <div class="row">
                                     <div class="col">
-                                        <img src="https://via.placeholder.com/180x130" class="img-fluid" alt="Product Image">
+                                        <img src="{{ $product['image'] }}" class="img-fluid" alt="Product Image">
                                     </div>
                                     <div class="col">
-                                        <p>Product Name</p>
+                                        <p>{{ $product['name'] }}</p>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="btn-group mr-2">
-                                    <button class="btn btn-outline-secondary">+</button>
-                                    <button class="btn btn-outline-secondary disabled">2</button>
-                                    <button class="btn btn-outline-secondary">-</button>
+                                    <a href="{{ route('cart.increase', $id) }}" class="btn btn-outline-secondary">+</a>
+                                    <button
+                                        class="btn btn-outline-secondary disabled">{{ $product['quantity'] }}</button>
+                                    <a href="{{ route('cart.decrease', $id) }}" class="btn btn-outline-secondary">-</a>
                                 </div>
                             </td>
                             <td>
-                                $ {{ number_format(2500) }}
+                                $ {{ number_format($product['price']) }}
                             </td>
                             <td>
-                                $ {{ number_format(5000) }}
+                                $ {{ number_format($product['price'] * $product['quantity']) }}
                             </td>
                             <td>
-                                <a href="#" class="btn btn-danger">
+                                <a href="{{ route('cart.remove', $id) }}" class="btn btn-danger">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
                         </tr>
+                        @empty
                         <tr>
-                            <td width="30%">
-                                <div class="row">
-                                    <div class="col">
-                                        <img src="https://via.placeholder.com/180x130" class="img-fluid" alt="Product Image">
-                                    </div>
-                                    <div class="col">
-                                        <p>Product Name</p>
-                                    </div>
-                                </div>
-                            </td>
                             <td>
-                                <div class="btn-group mr-2">
-                                    <button class="btn btn-outline-secondary">+</button>
-                                    <button class="btn btn-outline-secondary disabled">2</button>
-                                    <button class="btn btn-outline-secondary">-</button>
-                                </div>
-                            </td>
-                            <td>
-                                $ {{ number_format(2500) }}
-                            </td>
-                            <td>
-                                $ {{ number_format(5000) }}
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-danger">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
+                                <p>There is product in the cart.</p>
                             </td>
                         </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -99,7 +84,7 @@
             <div class="card card-body">
                 <div class="row mb-2">
                     <div class="col-6">Sub Total: </div>
-                    <div class="col-6 text-right">$ {{ number_format(1000) }}</div>
+                    <div class="col-6 text-right">$ {{ number_format($total) }}</div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-6">Discount: </div>
@@ -111,7 +96,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-6">Total: </div>
-                    <div class="col-6 text-right font-weight-bold"> $ {{ number_format(1000) }}</div>
+                    <div class="col-6 text-right font-weight-bold"> $ {{ number_format($total) }}</div>
                 </div>
                 <hr>
                 <a href="checkout" class="btn btn-primary mb-2">
